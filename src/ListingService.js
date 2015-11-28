@@ -1,6 +1,8 @@
 const base_uri = 'https://ibl.api.bbci.co.uk';
 const endpoint = '${base_uri}/ibl/v1/atoz/${letter}/programmes?page=${page}';
 
+import * as programmeUnmarshaller from './programmeUnmarshaller';
+
 class ListingService {
 
     //parameters: letter, pageNumber (defaults to 1)
@@ -11,17 +13,21 @@ class ListingService {
 
         let url = this._createUrl(letter, page);
 
-        return this._makeRequest('GET', url);
+        return this._makeRequest('GET', url).then((data) => {
+            return programmeUnmarshaller.unmarshallData(data);
+        });
     }
 
     //Wrapping the xhr to return a promise
+    //This function assumes the response will be json
     _makeRequest(method, url) {
         return new Promise((resolve, reject) => {
             var xhr = new XMLHttpRequest();
             xhr.open(method, url);
             xhr.onload = function () {
               if (this.status >= 200 && this.status < 300) {
-                resolve(xhr.response);
+                //resolve with json parsed object instead of string
+                resolve(JSON.parse(xhr.response));
               } else {
                 reject({
                   status: this.status,
