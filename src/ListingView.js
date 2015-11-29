@@ -3,8 +3,13 @@ const imageSize = '192x108';
 class ListingView {
 
     displayListOfProgrammes(list) {
+        //Show the listings and hide any error
         this.showListings(true);
+
         let listElement = document.getElementById("listing");
+
+        //First clear the list from old programmes
+        this.clearNode(listElement);
 
         list.forEach((programme) => {
             //Create the programme DOM li element
@@ -50,6 +55,32 @@ class ListingView {
         } else {
             listElement.classList.add('hideListing');
             errorElement.classList.remove('hideError');
+        }
+    }
+
+    createPaginationButtons(numberPages, currentPage, onClickFunc) {
+        let paginationDiv = document.getElementById("pagination");
+        //First clear any previous buttons
+        this.clearNode(paginationDiv);
+
+        //Create a button per page
+        for (let i = 1; i <= numberPages; i ++) {
+            let paginationButton = document.createElement('input');
+            paginationButton.setAttribute('type', 'button');
+            paginationButton.setAttribute('value', i);
+            paginationButton.onclick = () => {
+                onClickFunc(i);
+            };
+            if (i === currentPage) {
+                paginationButton.setAttribute('disabled', true);
+            }
+            paginationDiv.appendChild(paginationButton);
+        }
+    }
+
+    clearNode(node) {
+        while (node.firstChild) {
+            node.removeChild(node.firstChild);
         }
     }
 

@@ -15,11 +15,23 @@ class NavigationController {
         this.service.getProgrammesForLetterAndPage(letter, page).then((data) => {
             this.view.displayListOfProgrammes(data.elements);
 
-            //TODO: add paging
+            let numberPages = Math.ceil(data.count / data.per_page);
+            if (numberPages > 1) {
+                this.createPagination(letter, numberPages, data.page);
+            }
 
         }, (error) => {
             this.view.displayErrorMessage(error);
         });
+    }
+
+    createPagination(letter, numberPages, currentPage) {
+        //Keep all html rendering in the View layer, so we need to tell the View to create the pagination
+
+        //Create the function that will be called when a pagination button is clicked
+        let onClickFunc = this.loadLetterAndPage.bind(this, letter);
+
+        this.view.createPaginationButtons(numberPages, currentPage, onClickFunc);
     }
 }
 

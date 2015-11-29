@@ -83,4 +83,34 @@ describe('NavigationController', () => {
 
         });
     });
+
+    describe('Pagination', () => {
+        it('is not created if there is only 1 page', () => {
+            let serviceCallPromise = new Promise((resolve, reject) => {resolve(testData);});
+            sinon.stub(controller.service, "getProgrammesForLetterAndPage").returns(serviceCallPromise);
+            sinon.spy(controller.view, 'createPaginationButtons');
+
+            controller.loadLetterAndPage('z');
+            expect(controller.view.createPaginationButtons.notCalled).to.be.true;
+
+        });
+
+        it.skip('is created if there is more than 1 page', () => {
+            let serviceCallPromise = new Promise((resolve, reject) => {resolve(multiplePagesData);});
+            sinon.stub(controller.service, "getProgrammesForLetterAndPage").returns(serviceCallPromise);
+            sinon.spy(controller.view, 'createPaginationButtons');
+
+            controller.loadLetterAndPage('a', 4);
+            expect(controller.view.createPaginationButtons.calledWith('a', 5, 4)).to.be.true;
+
+        });
+
+        it('passes the correct arguments to the view to create the buttons', () => {
+            sinon.stub(controller.view, "createPaginationButtons");
+
+            controller.createPagination('a', 5, 2);
+            expect(controller.view.createPaginationButtons.calledWithMatch(5, 2)).to.be.true;
+
+        });
+    });
 });

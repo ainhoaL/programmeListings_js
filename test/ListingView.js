@@ -34,7 +34,7 @@ describe('ListingView', () => {
             listingView.displayListOfProgrammes([]);
 
             //Check the functiont that creates the programmes html is not called
-            expect(listingView.createProgrammeEntry.notCalled);
+            expect(listingView.createProgrammeEntry.notCalled).to.be.true;
         });
     });
 
@@ -47,7 +47,7 @@ describe('ListingView', () => {
 
         it('hides the error messages', () => {
             listingView.displayListOfProgrammes([programme]);
-            expect(listingView.showListings.calledWith(true));
+            expect(listingView.showListings.calledWith(true)).to.be.true;
 
             //TODO: check the elements have the right classes applied
         });
@@ -81,7 +81,7 @@ describe('ListingView', () => {
 
             listingView.displayErrorMessage({statusText: 'Bad Request'});
 
-            expect(listingView.showListings.calledWith(false));
+            expect(listingView.showListings.calledWith(false)).to.be.true;
 
             //TODO: check the elements have the right classes applied
         });
@@ -90,6 +90,17 @@ describe('ListingView', () => {
             listingView.displayErrorMessage({statusText: 'Bad Request'});
 
             //TODO: check the errorDetails element has the right text inside
+        });
+    });
+
+    //TODO: enable when we have tests running on the browser
+    describe.skip('Create pagination buttons', () => {
+
+        it('adds the message text to the error details', () => {
+            let onclickFunc = () => {};
+            listingView.createPaginationButtons(5, 2, onclickFunc);
+
+            //TODO: check the correct number of buttons has been created and #2 is disabled
         });
     });
 
