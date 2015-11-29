@@ -1,19 +1,12 @@
-
-import ListingService from './ListingService';
-import ListingView from './ListingView';
+import NavigationController from './NavigationController';
 
 function renderApp() {
     let div = document.getElementById('main');
 
-    let service = new ListingService();
-    let view = new ListingView();
+    let navigationController = new NavigationController();
 
     //Let's check this is all working end to end
-    service.getProgrammesForLetterAndPage('z', 1).then((data) => {
-        view.displayListOfProgrammes(data.elements);
-    }, (error) => {
-        div.textContent = error.statusText;
-    });
+    navigationController.loadLetterAndPage('a');
 }
 
 renderApp();
