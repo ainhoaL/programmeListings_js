@@ -5,10 +5,10 @@ import ListingService from '../bld/ListingService';
 
 const baseUrl = 'https://ibl.api.bbci.co.uk/ibl/v1/atoz';
 
-describe('ListingService', () => {
-    let listingService, sandbox, fakeServer;
+var expect = chai.expect;
 
-    let expect = chai.expect;
+describe('ListingService', () => {
+    let listingService, sandbox;
 
     beforeEach(() => {
         sandbox = sinon.sandbox.create();

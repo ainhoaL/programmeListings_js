@@ -1,11 +1,11 @@
 import chai from 'chai';
-import sinon from 'sinon';
 
 import * as programmeUnmarshaller from '../bld/programmeUnmarshaller';
 
+var expect = chai.expect;
+
 describe('programmeUnmarshaller', () => {
     let baseJsonData, sampleProgramme;
-    let expect = chai.expect;
 
     beforeEach(() => {
         //Restore the objects to their original values
@@ -90,7 +90,7 @@ describe('programmeUnmarshaller', () => {
                 title: 'ZingZillas',
                 smallSynopse: null,
                 image: undefined
-            }]
+            }];
 
             expect(programmeUnmarshaller.unmarshallData(baseJsonData)).to.deep.equal(expectedData);
         });
