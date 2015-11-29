@@ -38,6 +38,21 @@ describe('ListingView', () => {
         });
     });
 
+    describe.skip('If there is a list of programmes', () => {
+        it('adds the programmes to the page', () => {
+            listingView.displayListOfProgrammes([programme]);
+
+            //TODO: check the right number of items have been added to the list
+        });
+
+        it('hides the error messages', () => {
+            listingView.displayListOfProgrammes([programme]);
+            expect(listingView.showListings.calledWith(true));
+
+            //TODO: check the elements have the right classes applied
+        });
+    });
+
     describe('template creation', () => {
         it('creates valid html', () => {
             let expectedTemplate = '<img src="http://ichef.bbci.co.uk/images/ic/192x108/p01m1v3s.jpg" /><span>ZingZillas</span> '
@@ -56,6 +71,25 @@ describe('ListingView', () => {
             let template = listingView._templateProgramme(programme);
 
             expect(template).to.equal(expectedTemplate);
+        });
+    });
+
+    //TODO: enable when we have tests running on the browser
+    describe.skip('Showing an error', () => {
+        it('hides the programmes listing', () => {
+            sandbox.spy(listingView, 'showListings');
+
+            listingView.displayErrorMessage({statusText: 'Bad Request'});
+
+            expect(listingView.showListings.calledWith(false));
+
+            //TODO: check the elements have the right classes applied
+        });
+
+        it('adds the message text to the error details', () => {
+            listingView.displayErrorMessage({statusText: 'Bad Request'});
+
+            //TODO: check the errorDetails element has the right text inside
         });
     });
 

@@ -6,7 +6,7 @@ import NavigationController from '../bld/NavigationController';
 var expect = chai.expect;
 
 describe('NavigationController', () => {
-    let controller, serviceGetProgrammes, serviceCallPromise, displayList;
+    let controller, serviceGetProgrammes, serviceCallPromise, displayList, displayError;
 
     let testData = {
         count: 1,
@@ -31,6 +31,7 @@ describe('NavigationController', () => {
         controller = new NavigationController();
         serviceGetProgrammes = sinon.stub(controller.service, 'getProgrammesForLetterAndPage', stubServiceCall);
         displayList = sinon.stub(controller.view, 'displayListOfProgrammes');
+        displayError = sinon.stub(controller.view, 'displayErrorMessage');
 
     });
 
@@ -65,6 +66,16 @@ describe('NavigationController', () => {
 
             controller.loadLetterAndPage();
             expect(serviceGetProgrammes.calledWith, ['a', 1]);
+
+        });
+    });
+
+    describe('Loading programmes fails', () => {
+        it('shows the error message', () => {
+
+            controller.loadLetterAndPage();
+            serviceCallPromise.reject({statusText: 'Bad Request'});
+            expect(displayError.calledWith, {statusText: 'Bad Request'});
 
         });
     });

@@ -3,6 +3,7 @@ const imageSize = '192x108';
 class ListingView {
 
     displayListOfProgrammes(list) {
+        this.showListings(true);
         let listElement = document.getElementById("listing");
 
         list.forEach((programme) => {
@@ -29,6 +30,27 @@ class ListingView {
         }
         template = `<span>${programme.title}</span> <span>${programme.smallSynopse}</span>`;
         return imageTemplate ? imageTemplate + template : template;
+    }
+
+    displayErrorMessage(errorObj) {
+        this.showListings(false);
+
+        let errorSpan = document.getElementById("errorDetails");
+        errorSpan.textContent = errorObj.statusText;
+    }
+
+    //Centralized place to hide or show the listings / error message
+    showListings(showListing) {
+        let listElement = document.getElementById("listing");
+        let errorElement = document.getElementById("errorMessage");
+
+        if (showListing) {
+            listElement.classList.remove('hideListing');
+            errorElement.classList.add('hideError');
+        } else {
+            listElement.classList.add('hideListing');
+            errorElement.classList.remove('hideError');
+        }
     }
 
 }

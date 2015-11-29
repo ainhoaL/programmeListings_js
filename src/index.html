@@ -2,11 +2,17 @@
 <html>
     <head>
         <title>Programme Listing</title>
+        <link rel="stylesheet" href="./bld/styles.css" />
     </head>
 
     <body>
-        <div id="main"></div>
-        <ul id="listing"></ul>
+        <div id="container">
+            <div id="errorMessage" class="hideError">
+                Error loading the programmes. More details: <span id="errorDetails"></span>
+            </div>
+            <ul id="listing"></ul>
+        </div>
+
         <script src="bundle.js"></script>
     </body>
 </html>

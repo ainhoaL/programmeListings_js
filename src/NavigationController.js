@@ -18,10 +18,9 @@ class NavigationController {
             //TODO: add paging
 
         }, (error) => {
-            //TODO: Display error
+            this.view.displayErrorMessage(error);
         });
     }
-
 }
 
 export default NavigationController;
