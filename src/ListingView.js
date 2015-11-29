@@ -78,6 +78,21 @@ class ListingView {
         }
     }
 
+    createAZNavigation() {
+        let azNavigationDiv = document.getElementById("azNavigation");
+        this.clearNode(azNavigationDiv);
+        
+        let lettersArray = 'abcdefghijklmnopqrstuvwxyz'.split('');
+
+        lettersArray.forEach((letter) => {
+            let letterLink = document.createElement('a');
+            letterLink.setAttribute('id', "letter_" + letter);
+            letterLink.setAttribute('href', '?letter=' + letter);
+            letterLink.innerHTML = letter.toUpperCase();
+            azNavigationDiv.appendChild(letterLink);
+        });
+    }
+
     clearNode(node) {
         while (node.firstChild) {
             node.removeChild(node.firstChild);

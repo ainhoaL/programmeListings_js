@@ -10,7 +10,7 @@ class NavigationController {
 
     loadLetterAndPage(letter, page = 1) {
         //Keep track of which letter we are displaying
-        this.currentLetter = letter || 'a'; //Just in case somehow we are loading with a null letter
+        letter = letter || 'a'; //Just in case somehow we are loading with a null letter
 
         this.service.getProgrammesForLetterAndPage(letter, page).then((data) => {
             this.view.displayListOfProgrammes(data.elements);
@@ -32,6 +32,12 @@ class NavigationController {
         let onClickFunc = this.loadLetterAndPage.bind(this, letter);
 
         this.view.createPaginationButtons(numberPages, currentPage, onClickFunc);
+    }
+
+    //Just to expose the creation of the A to Z Navigation
+    //Don't want other modules to have to handle the view for themselves
+    createAZNavigation() {
+        this.view.createAZNavigation();
     }
 }
 
