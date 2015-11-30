@@ -72,7 +72,7 @@ class ListingView {
         this.clearNode(paginationList);
 
         //Create a button per page
-        for (let i = 1; i <= numberPages; i ++) {
+        for (let i = 1; i <= numberPages; i++) {
             let element = document.createElement('li');
             let paginationButton = document.createElement('input');
             paginationButton.setAttribute('type', 'button');

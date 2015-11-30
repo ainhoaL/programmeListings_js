@@ -11,7 +11,7 @@ describe('programmeUnmarshaller', () => {
         //Restore the objects to their original values
         baseJsonData = {
           'atoz_programmes': {
-            character:'z',
+            character: 'z',
             count: 1,
             page: 1,
             per_page: 20,
@@ -24,12 +24,12 @@ describe('programmeUnmarshaller', () => {
             type: 'programme_large',
             title: 'ZingZillas',
             synopses: {
-                 small:'A band of primate friends play music in their tropical island paradise and meet guests',
-                 medium:'A band of primate friends play music in their tropical island paradise and meet different musical guests'
+                small: 'A band of primate friends play music in their tropical island paradise and meet guests',
+                medium: 'A band of primate friends play music in their tropical island paradise and meet different musical guests'
             },
             images: {
-                 standard:'http://ichef.bbci.co.uk/images/ic/{recipe}/p01m1v3s.jpg',
-                 type:'image'
+                standard: 'http://ichef.bbci.co.uk/images/ic/{recipe}/p01m1v3s.jpg',
+                type: 'image'
             }
         };
     });

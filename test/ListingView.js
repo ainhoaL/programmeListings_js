@@ -16,8 +16,8 @@ describe('ListingView', () => {
         programme = {
             id: 'b00vk67s',
             title: 'ZingZillas',
-            smallSynopse:'A band of primate friends play music in their tropical island paradise and meet guests',
-            image:'http://ichef.bbci.co.uk/images/ic/{recipe}/p01m1v3s.jpg'
+            smallSynopse: 'A band of primate friends play music in their tropical island paradise and meet guests',
+            image: 'http://ichef.bbci.co.uk/images/ic/{recipe}/p01m1v3s.jpg'
         }
     });
 
