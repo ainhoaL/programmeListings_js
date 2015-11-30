@@ -13,7 +13,7 @@ class NavigationController {
         letter = letter || 'a'; //Just in case somehow we are loading with a null letter
 
         this.service.getProgrammesForLetterAndPage(letter, page).then((data) => {
-            this.view.displayListOfProgrammes(data.elements);
+            this.view.displayListOfProgrammes(data.character, data.elements);
 
             let numberPages = Math.ceil(data.count / data.per_page);
             if (numberPages > 1) {

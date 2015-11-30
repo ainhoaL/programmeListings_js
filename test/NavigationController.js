@@ -48,7 +48,7 @@ describe('NavigationController', () => {
 
             controller.loadLetterAndPage('z');
             expect(controller.service.getProgrammesForLetterAndPage.calledWith('z', 1)).to.be.true;
-            expect(displayProg.calledWith(testData.elements)).to.be.true;
+            expect(displayProg.calledWith('z', testData.elements)).to.be.true;
 
         });
     });
@@ -60,7 +60,7 @@ describe('NavigationController', () => {
             sinon.stub(controller.view, 'displayListOfProgrammes');
 
             controller.loadLetterAndPage('z', 1);
-            expect(controller.view.displayListOfProgrammes.calledWith('z', 1)).to.be.true();
+            expect(controller.view.displayListOfProgrammes.calledWith('z', testData.elements)).to.be.true();
         });
     });
 

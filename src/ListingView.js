@@ -2,11 +2,15 @@ const imageSize = '192x108';
 
 class ListingView {
 
-    displayListOfProgrammes(list) {
+    constructor() {
+        this.azLinks = {};
+    }
+
+    displayListOfProgrammes(letter, list) {
         //Show the listings and hide any error
         this.showListings(true);
 
-        let listElement = document.getElementById("listing");
+        let listElement = document.getElementById('listing');
 
         //First clear the list from old programmes
         this.clearNode(listElement);
@@ -27,27 +31,29 @@ class ListingView {
     }
 
     _templateProgramme(programme) {
-        let imageSrc, imageTemplate, template;
+        let imageSrc, imageTemplate;
+        let template = '<div class="programme">'
         //Make sure we have image information, otherwise don't display an image
         if (programme.image) {
             imageSrc = programme.image.replace('{recipe}', imageSize);
             imageTemplate = `<img src="${imageSrc}" />`;
         }
-        template = `<span>${programme.title}</span> <span>${programme.smallSynopse}</span>`;
-        return imageTemplate ? imageTemplate + template : template;
+        template += imageTemplate ? imageTemplate : '';
+        template += `<div class="programmeTitle"><strong>${programme.title}</strong></div> <div class="programmeSynopse">${programme.smallSynopse}</div></div>`;
+        return template;
     }
 
     displayErrorMessage(errorObj) {
         this.showListings(false);
 
-        let errorSpan = document.getElementById("errorDetails");
+        let errorSpan = document.getElementById('errorDetails');
         errorSpan.textContent = errorObj.statusText;
     }
 
     //Centralized place to hide or show the listings / error message
     showListings(showListing) {
-        let listElement = document.getElementById("listing");
-        let errorElement = document.getElementById("errorMessage");
+        let listElement = document.getElementById('listing');
+        let errorElement = document.getElementById('errorMessage');
 
         if (showListing) {
             listElement.classList.remove('hideListing');
@@ -59,12 +65,13 @@ class ListingView {
     }
 
     createPaginationButtons(numberPages, currentPage, onClickFunc) {
-        let paginationDiv = document.getElementById("pagination");
+        let paginationList = document.getElementById('pagination');
         //First clear any previous buttons
-        this.clearNode(paginationDiv);
+        this.clearNode(paginationList);
 
         //Create a button per page
         for (let i = 1; i <= numberPages; i ++) {
+            let element = document.createElement('li');
             let paginationButton = document.createElement('input');
             paginationButton.setAttribute('type', 'button');
             paginationButton.setAttribute('value', i);
@@ -74,22 +81,28 @@ class ListingView {
             if (i === currentPage) {
                 paginationButton.setAttribute('disabled', true);
             }
-            paginationDiv.appendChild(paginationButton);
+            element.appendChild(paginationButton);
+            paginationList.appendChild(element);
         }
     }
 
     createAZNavigation() {
-        let azNavigationDiv = document.getElementById("azNavigation");
-        this.clearNode(azNavigationDiv);
-        
+        let azNavigationList = document.getElementById('azNavigation');
+        this.clearNode(azNavigationList);
+
         let lettersArray = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
         lettersArray.forEach((letter) => {
+            let element = document.createElement('li');
+
             let letterLink = document.createElement('a');
-            letterLink.setAttribute('id', "letter_" + letter);
             letterLink.setAttribute('href', '?letter=' + letter);
             letterLink.innerHTML = letter.toUpperCase();
-            azNavigationDiv.appendChild(letterLink);
+            //store the links so we can access them later
+            this.azLinks[letter] = letterLink;
+
+            element.appendChild(letterLink);
+            azNavigationList.appendChild(element);
         });
     }
 

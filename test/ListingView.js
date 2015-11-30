@@ -55,8 +55,8 @@ describe('ListingView', () => {
 
     describe('template creation', () => {
         it('creates valid html', () => {
-            let expectedTemplate = '<img src="http://ichef.bbci.co.uk/images/ic/192x108/p01m1v3s.jpg" /><span>ZingZillas</span> '
-            + '<span>A band of primate friends play music in their tropical island paradise and meet guests</span>';
+            let expectedTemplate = '<div class="programme"><img src="http://ichef.bbci.co.uk/images/ic/192x108/p01m1v3s.jpg" /><div class="programmeTitle"><strong>'
+            + 'ZingZillas</strong></div> <div class="programmeSynopse">A band of primate friends play music in their tropical island paradise and meet guests</div></div>';
 
             let template = listingView._templateProgramme(programme);
 
@@ -64,7 +64,8 @@ describe('ListingView', () => {
         });
 
         it('skips image if no image src', () => {
-            let expectedTemplate = '<span>ZingZillas</span> <span>A band of primate friends play music in their tropical island paradise and meet guests</span>';
+            let expectedTemplate = '<div class="programme"><div class="programmeTitle"><strong>'
+            + 'ZingZillas</strong></div> <div class="programmeSynopse">A band of primate friends play music in their tropical island paradise and meet guests</div></div>';
 
             programme.image = null;
 
