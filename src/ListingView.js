@@ -32,7 +32,7 @@ class ListingView {
 
     _templateProgramme(programme) {
         let imageSrc, imageTemplate;
-        let template = '<div class="programme">'
+        let template = '<div class="programme">';
         //Make sure we have image information, otherwise don't display an image
         if (programme.image) {
             imageSrc = programme.image.replace('{recipe}', imageSize);

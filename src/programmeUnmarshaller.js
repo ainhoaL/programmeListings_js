@@ -5,7 +5,7 @@ function unmarshallProgramme(programme) {
         title: programme.title,
         image: programme.images ? programme.images.standard : null,
         smallSynopse: programme.synopses ? programme.synopses.small : null
-    }
+    };
 }
 
 export function unmarshallData(jsonData) {

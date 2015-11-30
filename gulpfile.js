@@ -12,7 +12,7 @@ var BLDTESTS = 'bldtest';
 
 gulp.task('copy-nonjs', function () {
     return gulp.src(NONJS)
-        .pipe(gulp.dest(BLD))
+        .pipe(gulp.dest(BLD));
 });
 
 gulp.task('compile-src', function () {
