@@ -1,6 +1,6 @@
 #Programme Listings
 
-> Simple ES6 application that shows the paginated A-Z listings of BBC programmes, showing an image, title and small description per programme.
+> Simple ES6 application that shows the paginated A-Z listings of BBC programmes, showing an image, title and small description per programme. It calls a BBC API to get the data.
 
 ##Installation
 
