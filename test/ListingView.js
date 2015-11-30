@@ -1,9 +1,12 @@
 import chai from 'chai';
 import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 
 import ListingView from '../bld/ListingView';
 
 var expect = chai.expect;
+chai.should();
+chai.use(sinonChai);
 
 describe('ListingView', () => {
     let listingView, sandbox, programme;
@@ -18,7 +21,7 @@ describe('ListingView', () => {
             title: 'ZingZillas',
             smallSynopse: 'A band of primate friends play music in their tropical island paradise and meet guests',
             image: 'http://ichef.bbci.co.uk/images/ic/{recipe}/p01m1v3s.jpg'
-        }
+        };
     });
 
     afterEach(() => {
@@ -34,7 +37,7 @@ describe('ListingView', () => {
             listingView.displayListOfProgrammes([]);
 
             //Check the functiont that creates the programmes html is not called
-            expect(listingView.createProgrammeEntry.notCalled).to.be.true;
+            expect(listingView.createProgrammeEntry).to.not.have.been.called();
         });
     });
 
@@ -47,7 +50,7 @@ describe('ListingView', () => {
 
         it('hides the error messages', () => {
             listingView.displayListOfProgrammes([programme]);
-            expect(listingView.showListings.calledWith(true)).to.be.true;
+            expect(listingView.showListings).to.have.been.calledWith(true);
 
             //TODO: check the elements have the right classes applied
         });
@@ -55,8 +58,8 @@ describe('ListingView', () => {
 
     describe('template creation', () => {
         it('creates valid html', () => {
-            let expectedTemplate = '<div class="programme"><img src="http://ichef.bbci.co.uk/images/ic/192x108/p01m1v3s.jpg" /><div class="programmeTitle"><strong>'
-            + 'ZingZillas</strong></div> <div class="programmeSynopse">A band of primate friends play music in their tropical island paradise and meet guests</div></div>';
+            let expectedTemplate = '<div class="programme"><img src="http://ichef.bbci.co.uk/images/ic/192x108/p01m1v3s.jpg" /><div class="programmeTitle"><strong>' +
+            'ZingZillas</strong></div> <div class="programmeSynopse">A band of primate friends play music in their tropical island paradise and meet guests</div></div>';
 
             let template = listingView._templateProgramme(programme);
 
@@ -64,8 +67,8 @@ describe('ListingView', () => {
         });
 
         it('skips image if no image src', () => {
-            let expectedTemplate = '<div class="programme"><div class="programmeTitle"><strong>'
-            + 'ZingZillas</strong></div> <div class="programmeSynopse">A band of primate friends play music in their tropical island paradise and meet guests</div></div>';
+            let expectedTemplate = '<div class="programme"><div class="programmeTitle"><strong>' +
+            'ZingZillas</strong></div> <div class="programmeSynopse">A band of primate friends play music in their tropical island paradise and meet guests</div></div>';
 
             programme.image = null;
 
@@ -82,7 +85,7 @@ describe('ListingView', () => {
 
             listingView.displayErrorMessage({statusText: 'Bad Request'});
 
-            expect(listingView.showListings.calledWith(false)).to.be.true;
+            expect(listingView.showListings).to.not.have.been.called();
 
             //TODO: check the elements have the right classes applied
         });

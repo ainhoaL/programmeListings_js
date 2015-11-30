@@ -1,11 +1,14 @@
 import chai from 'chai';
 import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 
 import ListingService from '../bld/ListingService';
 
 const baseUrl = 'https://ibl.api.bbci.co.uk/ibl/v1/atoz';
 
 var expect = chai.expect;
+chai.should();
+chai.use(sinonChai);
 
 describe('ListingService', () => {
     let listingService, sandbox;
@@ -27,7 +30,7 @@ describe('ListingService', () => {
 
                 listingService.getProgrammesForLetterAndPage('x');
 
-                expect(listingService._createUrl.calledWith, ['x', 1]);
+                expect(listingService._createUrl).to.have.been.calledWith('x', 1);
             });
         });
 
@@ -37,7 +40,7 @@ describe('ListingService', () => {
 
                 listingService.getProgrammesForLetterAndPage('x', 0);
 
-                expect(listingService._createUrl.calledWith, ['x', 1]);
+                expect(listingService._createUrl).to.have.been.calledWith('x', 1);
             });
         });
     });

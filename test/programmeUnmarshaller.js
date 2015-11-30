@@ -65,7 +65,7 @@ describe('programmeUnmarshaller', () => {
                 title: 'ZingZillas',
                 smallSynopse: 'A band of primate friends play music in their tropical island paradise and meet guests',
                 image: 'http://ichef.bbci.co.uk/images/ic/{recipe}/p01m1v3s.jpg'
-            }]
+            }];
 
             expect(programmeUnmarshaller.unmarshallData(baseJsonData)).to.deep.equal(expectedData);
         });

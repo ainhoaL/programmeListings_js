@@ -1,12 +1,15 @@
 import chai from 'chai';
 import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 
 import NavigationController from '../bld/NavigationController';
 
 var expect = chai.expect;
+chai.should();
+chai.use(sinonChai);
 
 describe('NavigationController', () => {
-    let controller;
+    let controller, sandbox;
 
     let testData = {
         count: 1,
@@ -37,80 +40,105 @@ describe('NavigationController', () => {
     let error = {statusText: 'Bad Request'};
 
     beforeEach(() => {
+        sandbox = sinon.sandbox.create();
         controller = new NavigationController();
     });
 
-    describe.skip('Given a letter', () => {
-        it('loads the programmes for that letter', () => {
-            let serviceCallPromise = new Promise((resolve, reject) => {resolve(testData);});
-            sinon.stub(controller.service, "getProgrammesForLetterAndPage").returns(serviceCallPromise);
-            let displayProg = sinon.stub(controller.view, 'displayListOfProgrammes');
-
-            controller.loadLetterAndPage('z');
-            expect(controller.service.getProgrammesForLetterAndPage.calledWith('z', 1)).to.be.true;
-            expect(displayProg.calledWith(testData.elements)).to.be.true;
-
-        });
+    afterEach(() => {
+        sandbox.restore();
     });
 
-    describe.skip('Given a letter and a page', () => {
-        it('loads the programmes for that letter and page', () => {
-            let serviceCallPromise = new Promise((resolve, reject) => {resolve(testData);});
-            sinon.stub(controller.service, "getProgrammesForLetterAndPage").returns(serviceCallPromise);
-            sinon.stub(controller.view, 'displayListOfProgrammes');
+    describe('Loading a letter and page', () => {
+        let serviceCallPromise, serviceStub, viewStub;
+        beforeEach(() => {
+            viewStub = sandbox.stub(controller.view, 'displayListOfProgrammes');
+            serviceCallPromise = Promise.defer();
+            serviceStub = sandbox.stub(controller.service, "getProgrammesForLetterAndPage");
+            serviceStub.returns(serviceCallPromise.promise);
+        });
+
+        it('loads the programmes for that letter if only given a letter', () => {
+            controller.loadLetterAndPage('z');
+
+            serviceCallPromise.resolve(testData);
+            expect(serviceStub).to.have.been.calledWith('z', 1);
+
+            //Check when the promise is resolved, otherwise we check too soon!
+            serviceCallPromise.promise.then(() => {
+                expect(viewStub).to.have.been.calledWith(testData.elements);
+            });
+        });
+
+        it('loads the programmes for that letter and page if given both', () => {
 
             controller.loadLetterAndPage('z', 1);
-            expect(controller.view.displayListOfProgrammes.calledWith(testData.elements)).to.be.true();
-        });
-    });
+            serviceCallPromise.resolve(testData);
 
-    describe.skip('Not giving a letter', () => {
-        it('loads the programmes for "a"', () => {
+            //Check when the promise is resolved, otherwise we check too soon!
+            serviceCallPromise.promise.then(() => {
+                expect(viewStub).to.have.been.calledWith(testData.elements);
+            });
+
+        });
+
+        it('loads the programmes for "a" if a letter is not given', () => {
 
             controller.loadLetterAndPage();
-            expect(serviceGetProgrammes.calledWith('a', 1)).to.be.true;
+            expect(serviceStub).to.have.been.calledWith('a', 1);
         });
     });
 
-    describe.skip('Loading programmes fails', () => {
+    describe('Loading programmes fails', () => {
+        let serviceCallPromise, serviceStub, errorStub;
+        beforeEach(() => {
+            errorStub = sandbox.stub(controller.view, 'displayErrorMessage');
+            serviceCallPromise = Promise.defer();
+            serviceStub = sandbox.stub(controller.service, "getProgrammesForLetterAndPage");
+            serviceStub.returns(serviceCallPromise.promise);
+        });
+
         it('shows the error message', () => {
-            let serviceCallPromise = new Promise((resolve, reject) => {reject(error);});
-            sinon.stub(controller.service, "getProgrammesForLetterAndPage").returns(serviceCallPromise);
-            sinon.stub(controller.view, 'displayErrorMessage');
 
             controller.loadLetterAndPage();
-            expect(controller.view.displayErrorMessage.calledWith({statusText: 'Bad Request'})).to.be.true;
+            serviceCallPromise.reject(error);
 
+            //Check when the promise is rejected, otherwise we check too soon!
+            serviceCallPromise.promise.then(() => {}, () => {
+                expect(errorStub).to.have.been.calledWith({statusText: 'Bad Request'});
+            });
         });
     });
 
     describe('Pagination', () => {
-        it('is not created if there is only 1 page', () => {
-            let serviceCallPromise = new Promise((resolve, reject) => {resolve(testData);});
-            sinon.stub(controller.service, "getProgrammesForLetterAndPage").returns(serviceCallPromise);
-            sinon.spy(controller.view, 'createPaginationButtons');
-
-            controller.loadLetterAndPage('z');
-            expect(controller.view.createPaginationButtons.notCalled).to.be.true;
-
+        let serviceCallPromise, serviceStub, paginationStub;
+        beforeEach(() => {
+            paginationStub = sandbox.stub(controller.view, 'createPaginationButtons');
+            serviceCallPromise = Promise.defer();
+            serviceStub = sandbox.stub(controller.service, "getProgrammesForLetterAndPage");
+            serviceStub.returns(serviceCallPromise.promise);
         });
 
-        it.skip('is created if there is more than 1 page', () => {
-            let serviceCallPromise = new Promise((resolve, reject) => {resolve(multiplePagesData);});
-            sinon.stub(controller.service, "getProgrammesForLetterAndPage").returns(serviceCallPromise);
-            sinon.spy(controller.view, 'createPaginationButtons');
+        it('is not created if there is only 1 page', () => {
+            controller.loadLetterAndPage('z');
+            serviceCallPromise.resolve(testData);
 
+            serviceCallPromise.promise.then(() => {
+                expect(paginationStub).to.not.have.been.called();
+            });
+        });
+
+        it('is created if there is more than 1 page', () => {
             controller.loadLetterAndPage('a', 4);
-            expect(controller.view.createPaginationButtons.calledWith('a', 5, 4)).to.be.true;
+            serviceCallPromise.resolve(multiplePagesData);
 
+            serviceCallPromise.promise.then(() => {
+                expect(paginationStub).to.have.been.calledWith('a', 5, 4);
+            });
         });
 
         it('passes the correct arguments to the view to create the buttons', () => {
-            sinon.stub(controller.view, "createPaginationButtons");
-
             controller.createPagination('a', 5, 2);
-            expect(controller.view.createPaginationButtons.calledWithMatch(5, 2)).to.be.true;
-
+            expect(paginationStub).to.have.been.calledWith(5, 2);
         });
     });
 });
