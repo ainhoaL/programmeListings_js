@@ -49,3 +49,11 @@ $ npm run start-dev
 ```
 Starts a webpack-dev-server that bundles the javascript in the bld folder.
 Every time a file in bld is changed the server rebundles the files and the page in the browser refreshes instantly showing the changes.
+
+##Tourbleshooting Installation
+
+I have once run into a problem installing, where it would not install the babel preset correctly. If that happens, type the following commands to install it correctly.
+```shell
+$ npm install gulp-babel
+$ npm install babel-preset-2015
+```
