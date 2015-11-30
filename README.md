@@ -34,8 +34,8 @@ Note: some of the tests are skipped because they need to be run on the browser t
 
 ##Developing
 
-1. Open 2 consoles
-2. In one run
+1. Open 2 consoles.
+2. In one run:
 ```shell
 $ npm run dev
 ```
@@ -43,7 +43,7 @@ Transpiles all the ES6 code into the folders bld (from src) and bldtest (from te
 Then it runs the tests (you will see the results in the console) and waits.
 Every time it sees a file change in src or test, the task will redo the whole process. The tests are run every time code changes so errors are caught fast.
 
-3. In the other one run
+3. In the other one run:
 ```shell
 $ npm run start-dev
 ```
