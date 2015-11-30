@@ -29,9 +29,10 @@ class ListingService {
                     //resolve with json parsed object instead of string
                     resolve(JSON.parse(xhr.response));
                 } else {
+                    let response = JSON.parse(xhr.response);
                     reject({
                         status: this.status,
-                        statusText: xhr.statusText
+                        statusText: response.error ? response.error.details : xhr.statusText
                     });
                 }
             };
