@@ -10,12 +10,12 @@ var BLD = 'bld';
 var TESTS = 'test/**/*js';
 var BLDTESTS = 'bldtest';
 
-gulp.task('copy-nonjs', () => {
+gulp.task('copy-nonjs', function () {
     return gulp.src(NONJS)
         .pipe(gulp.dest(BLD))
 });
 
-gulp.task('compile-src', () => {
+gulp.task('compile-src', function () {
     return gulp.src(SRC)
         .pipe(sourcemaps.init())
         .pipe(babel({
@@ -25,7 +25,7 @@ gulp.task('compile-src', () => {
         .pipe(gulp.dest(BLD));
 });
 
-gulp.task('compile-tests', () => {
+gulp.task('compile-tests', function () {
     return gulp.src(TESTS)
         .pipe(babel({
             presets: ['es2015']
@@ -33,13 +33,13 @@ gulp.task('compile-tests', () => {
         .pipe(gulp.dest(BLDTESTS));
 });
 
-gulp.task('test', ['compile-tests'], () => {
+gulp.task('test', ['compile-tests'], function () {
 	return gulp.src(BLDTESTS + '/*.js')
         .pipe(mocha());
 });
 
 gulp.task('build', ['copy-nonjs', 'compile-src', 'test']);
 
-gulp.task('build-watch', ['build'], () => {
+gulp.task('build-watch', ['build'], function () {
     return gulp.watch([SRC, TESTS, NONJS], ['build', 'test', 'copy-nonjs']);
 });
