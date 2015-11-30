@@ -102,6 +102,13 @@ describe('ListingView', () => {
 
             //TODO: check the correct number of buttons has been created and #2 is disabled
         });
+
+        it('displays the pagination div', () => {
+            let onclickFunc = () => {};
+            listingView.createPaginationButtons(5, 2, onclickFunc);
+
+            //TODO: check the pagination div has the right class
+        });
     });
 
     //TODO: enable when we have tests running on the browser

@@ -12,8 +12,10 @@ class NavigationController {
         //Keep track of which letter we are displaying
         letter = letter || 'a'; //Just in case somehow we are loading with a null letter
 
+        this.view.setCurrentLetter(letter);
+
         this.service.getProgrammesForLetterAndPage(letter, page).then((data) => {
-            this.view.displayListOfProgrammes(data.character, data.elements);
+            this.view.displayListOfProgrammes(data.elements);
 
             let numberPages = Math.ceil(data.count / data.per_page);
             if (numberPages > 1) {

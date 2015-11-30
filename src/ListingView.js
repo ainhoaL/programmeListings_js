@@ -6,7 +6,7 @@ class ListingView {
         this.azLinks = {};
     }
 
-    displayListOfProgrammes(letter, list) {
+    displayListOfProgrammes(list) {
         //Show the listings and hide any error
         this.showListings(true);
 
@@ -65,7 +65,9 @@ class ListingView {
     }
 
     createPaginationButtons(numberPages, currentPage, onClickFunc) {
-        let paginationList = document.getElementById('pagination');
+        this.hidePagination(false);
+
+        let paginationList = document.getElementById('paginationButtons');
         //First clear any previous buttons
         this.clearNode(paginationList);
 
@@ -83,6 +85,15 @@ class ListingView {
             }
             element.appendChild(paginationButton);
             paginationList.appendChild(element);
+        }
+    }
+
+    hidePagination(hide) {
+        let paginationDiv = document.getElementById('pagination');
+        if (hide) {
+            paginationDiv.classList.add('hidePagination');
+        } else {
+            paginationDiv.classList.remove('hidePagination');
         }
     }
 
@@ -104,6 +115,13 @@ class ListingView {
             element.appendChild(letterLink);
             azNavigationList.appendChild(element);
         });
+    }
+
+    setCurrentLetter(letter) {
+        let letterLink = this.azLinks[letter];
+        if (letterLink) {
+            letterLink.classList.add('selected');
+        }
     }
 
     clearNode(node) {

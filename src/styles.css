@@ -1,17 +1,25 @@
 body {
     background-color: #252525;
     font-family: Arial, Helvetica;
+    color: #bbb;
 }
 
 .content {
-    width: 80%;
+    width: 90%;
     margin: auto;
+}
+
+h2 {
+    padding: 0 20px;
 }
 
 ul {
     margin: 0;
     padding: 0;
     list-style-type: none;
+}
+
+.listing {
     clear: both;
 }
 
@@ -30,12 +38,9 @@ ul {
     padding-bottom: 10px;
 }
 
-.programmeSynopse {
-    color: #bbb;
-}
-
 .azNavigation {
     padding: 26px 12px;
+    clear: both;
 }
 
 .azNavigation li {
@@ -54,16 +59,55 @@ ul {
     background-color: #f54997;
 }
 
-.pagination {
-    width: 100%;
-    text-align: center;
-    margin: auto;
+.azNavigation .selected {
+    background-color: #f54997;
 }
 
-.pagination li {
+.pagination {
+    padding: 26px 20px;
+    width: 100%;
+    height: 50px;
+    clear: both;
+    text-align: center;
+    line-height: 20px;
+}
+
+.pagination span {
+    display: inline-block;
+    line-height: normal;
+    vertical-align: middle;
     float: left;
+}
+
+.paginationList {
+    display: inline;
+    float: left;
+}
+
+.paginationList li {
+    float: left;
+    margin: 0 5px;
+}
+
+.paginationList input {
     background-color: #000;
-    margin: 5px;
+    padding: 10px 20px;
+    color: #bbb;
+    text-decoration: none;
+    border: 0px;
+}
+
+.paginationList input:active {
+    background-color: #f54997;
+}
+
+.paginationList input:disabled {
+    background-color: #f54997;
+}
+
+.error {
+    padding: 26px 12px;
+    clear: both;
 }
 
 .hideError {
@@ -71,5 +115,9 @@ ul {
 }
 
 .hideListing {
+    display: none;
+}
+
+.hidePagination {
     display: none;
 }

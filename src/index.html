@@ -7,12 +7,16 @@
 
     <body>
         <div id="container" class="content">
+            <h2>A-Z of Programmes</h2>
             <ul id="azNavigation" class="azNavigation"></ul>
-            <div id="errorMessage" class="hideError">
+            <div id="errorMessage" class=" error hideError">
                 Error loading the programmes. More details: <span id="errorDetails"></span>
             </div>
             <ul id="listing" class="listing"></ul>
-            <ul id="pagination" class="pagination"></ul>
+            <div id="pagination" class="pagination hidePagination">
+                <span>Go to page:</span>
+                <ul id="paginationButtons" class="paginationList"></ul>
+            </div>
         </div>
 
         <script src="bundle.js"></script>
