@@ -15,7 +15,8 @@ In the command line:
 $ npm start
 ```
 
-Then go to [localhost:8080/idex.html](https://localhost:8080/index.html)
+Then go to [localhost:8080/idex.html](http://localhost:8080/index.html)
+
 You can now browse through the programmes with the top A-Z navigation and for letters with more than 20 programmes you will see a pagination at the bottom to take you through the pages.
 
 This task transpiles all the ES6 code into the folders bld (from src) and bldtest (from test). It also copies across any non js files like index.html and styles.css.
