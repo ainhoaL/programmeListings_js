@@ -56,5 +56,5 @@ Every time a file in bld is changed the server rebundles the files and the page 
 I have once run into a problem installing, where it would not install the babel preset correctly. If that happens, type the following commands to install it correctly.
 ```shell
 $ npm install gulp-babel
-$ npm install babel-preset-2015
+$ npm install babel-preset-es2015 --save-dev
 ```
