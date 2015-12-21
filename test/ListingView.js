@@ -97,31 +97,4 @@ describe('ListingView', () => {
         });
     });
 
-    //TODO: enable when we have tests running on the browser
-    describe.skip('Create pagination buttons', () => {
-        it('adds the right number of buttons to the pagination', () => {
-            let onclickFunc = () => {};
-            listingView.createPaginationButtons(5, 2, onclickFunc);
-
-            //TODO: check the correct number of buttons has been created and #2 is disabled
-        });
-
-        it('displays the pagination div', () => {
-            let onclickFunc = () => {};
-            listingView.createPaginationButtons(5, 2, onclickFunc);
-
-            //TODO: check the pagination div has the right class
-        });
-    });
-
-    //TODO: enable when we have tests running on the browser
-    describe.skip('Create a to z navigation', () => {
-        it('adds the 26 letters as links with the right href', () => {
-
-            listingView.createAZNavigation();
-
-            //TODO: check the correct number of links has been created and with the correct href and text
-        });
-    });
-
 });

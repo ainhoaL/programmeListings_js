@@ -112,7 +112,7 @@ describe('NavigationController', () => {
     describe('Pagination', () => {
         let serviceCallPromise, serviceStub, paginationStub;
         beforeEach(() => {
-            paginationStub = sandbox.stub(controller.view, 'createPaginationButtons');
+            paginationStub = sandbox.stub(controller.pagination, 'createPaginationButtons');
             serviceCallPromise = Promise.defer();
             serviceStub = sandbox.stub(controller.service, "getProgrammesForLetterAndPage");
             serviceStub.returns(serviceCallPromise.promise);
