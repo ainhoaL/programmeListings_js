@@ -35,7 +35,7 @@ class NavigationController {
         //Create the function that will be called when a pagination button is clicked
         let onClickFunc = this.loadLetterAndPage.bind(this, letter);
 
-        this.pagination.createPaginationButtons(numberPages, currentPage, onClickFunc);
+        this.pagination.createPagination(numberPages, currentPage, onClickFunc);
     }
 
     //Just to expose the creation of the A to Z Navigation
